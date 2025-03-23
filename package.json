@@ -1,6 +1,7 @@
 {
   "name": "instarent-backend",
   "version": "1.0.0",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,6 +23,7 @@
     "dotenv": "^16.4.7",
     "eslint": "^8.57.1",
     "express": "^4.21.2",
+    "pg": "^8.14.1",
     "sequelize": "^6.37.6",
     "zod": "^3.24.2"
   },
