@@ -37,7 +37,7 @@ export const UsersModel = (sequelize) => {
       }
     },
     {
-      timestamps: true
+      timestamps: false
     }
   )
 }

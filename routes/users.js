@@ -2,15 +2,14 @@ import { Router } from 'express'
 
 import { UsersController } from '../controllers/usersController.js'
 
-export const userRoutes = ({ model }) => {
-  const userRouter = Router()
+export const usersRoutes = ({ model }) => {
+  const usersRouter = Router()
   const usersController = new UsersController({ model })
 
-  userRouter.get('/', usersController.getAll)
-  //   userRouter.post('/', usersController.create)
-  //   userRouter.get('/:id', usersController.getById)
-  //   userRouter.put('/:id', usersController.update)
-  //   userRouter.delete('/:id', usersController.delete)
+  usersRouter.get('/', usersController.getAll)
+  //   usersRouter.get('/:id', usersController.getById)
+  //   usersRouter.put('/:id', usersController.update)
+  //   usersRouter.delete('/:id', usersController.delete)
 
-  return userRouter
+  return usersRouter
 }

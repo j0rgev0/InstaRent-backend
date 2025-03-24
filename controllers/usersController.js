@@ -1,13 +1,20 @@
-// import { validateUser } from '../schemas/users'
-
 export class UsersController {
   constructor ({ model }) {
     this.model = model
   }
 
   getAll = async (req, res) => {
-    const usersJSON = await this.model.getAllUsers()
+    try {
+      const usersJSON = await this.model.getAllUsers()
 
-    res.json(usersJSON)
+      if (!usersJSON.length) {
+        return res.status(404).json({ message: 'No users found' })
+      }
+
+      res.json(usersJSON)
+    } catch (e) {
+      console.error('Error getting users:', e)
+      res.status(500).json({ error: 'internal server error' })
+    }
   }
 }

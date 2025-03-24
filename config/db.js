@@ -1,11 +1,9 @@
 // import { neon } from '@neondatabase/serverless'
-import dotenv from 'dotenv'
+import { env } from './env.js'
 import { Sequelize } from 'sequelize'
 import { UsersModel } from '../sequelize/usersModel.js'
 
-dotenv.config()
-
-const sequelize = new Sequelize(process.env.DATABASE_URL, {
+const sequelize = new Sequelize(env.DATABASE_URL, {
   dialect: 'postgres',
   dialectOptions: {
     ssl: {
