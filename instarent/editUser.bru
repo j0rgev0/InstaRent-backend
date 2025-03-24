@@ -1,0 +1,24 @@
+meta {
+  name: editUser
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://localhost:3000/users/9ba402b8-aedb-4b47-9a44-49fb24f6efe7
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YmE0MDJiOC1hZWRiLTRiNDctOWE0NC00OWZiMjRmNmVmZTciLCJyb2xlIjoidGVuYW50IiwiaWF0IjoxNzQyODQwNTIxLCJleHAiOjE3NDM0NDUzMjF9.uVN7GCcWaf_6TR_v9uW536cZIGcyKbaEP0tj4YGOYWU
+}
+
+body:json {
+  {
+    "username": "user",
+    "email": "user@example.com",
+    "role":"tenant",
+    "password": "123456"
+  }
+}

@@ -7,7 +7,7 @@ export const usersRoutes = ({ model }) => {
 
   usersRouter.get('/', usersController.getAll)
   //   usersRouter.get('/:id', usersController.getById)
-  //   usersRouter.put('/:id', usersController.update)
+  usersRouter.patch('/:id', usersController.edit)
   //   usersRouter.delete('/:id', usersController.delete)
 
   return usersRouter

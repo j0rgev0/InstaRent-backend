@@ -37,7 +37,8 @@ export const UsersModel = (sequelize) => {
       }
     },
     {
-      timestamps: false
+      timestamps: true,
+      underscored: true
     }
   )
 }

@@ -25,6 +25,7 @@ export class AuthModel {
 
       const newUser = await Users.create({
         ...user,
+        id: sequelize.UUIDV4,
         password: hashedPassword
       })
 

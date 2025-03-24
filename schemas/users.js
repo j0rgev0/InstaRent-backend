@@ -15,10 +15,12 @@ const userLoginSchema = z.object({
   password: z.string().min(6, { message: 'Password must be at least 6 characters long' })
 })
 
-export function validateUser (user) {
-  return userSchema.safeParse(user)
+export function validateUser (input) {
+  return userSchema.safeParse(input)
 }
-
-export function validateLogin (user) {
-  return userLoginSchema.safeParse(user)
+export function validatePartialUser (input) {
+  return userSchema.partial().safeParse(input)
+}
+export function validateLogin (input) {
+  return userLoginSchema.safeParse(input)
 }
