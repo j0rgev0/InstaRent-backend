@@ -1,5 +1,4 @@
 import { Router } from 'express'
-
 import { UsersController } from '../controllers/usersController.js'
 
 export const usersRoutes = ({ model }) => {

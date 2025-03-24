@@ -11,6 +11,7 @@ const sequelize = new Sequelize(env.DATABASE_URL, {
       rejectUnauthorized: false
     }
   }
+  // logging: false
 })
 
 export const User = UsersModel(sequelize)
