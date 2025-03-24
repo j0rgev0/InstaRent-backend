@@ -4,6 +4,6 @@ config()
 
 export const env = {
   DATABASE_URL: process.env.DATABASE_URL,
-  SIGNATURE: process.env.SIGNATURE ?? 'abcd',
+  SIGNATURE: process.env.SIGNATURE,
   PORT: process.env.PORT ?? 3000
 }

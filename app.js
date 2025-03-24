@@ -2,13 +2,15 @@ import express, { json } from 'express'
 import { authRoutes } from './routes/auth.js'
 import { usersRoutes } from './routes/users.js'
 import { env } from './config/env.js'
-
+import { authMiddleware } from './middlewares/auth.js'
 export const createApp = ({ model }) => {
   const app = express()
   app.use(json())
 
+  // app.use(authMiddleware)
+
   app.use('/auth', authRoutes({ model }))
-  app.use('/users', usersRoutes({ model }))
+  app.use('/users', authMiddleware, usersRoutes({ model }))
   // app.use('/likes', likesRoutes({ model }))
   // app.use('/properties', propertiesRoutes({ model }))
   // app.use('/chat', chatRoutes({ model }))

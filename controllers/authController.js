@@ -9,11 +9,7 @@ export class AuthController {
     try {
       const result = validateUser(req.body)
 
-      if (!result.success) {
-        return res
-          .status(400)
-          .json({ error: JSON.parse(result.error.message) })
-      }
+      if (!result.success) return res.status(400).json({ error: JSON.parse(result.error.message) })
 
       const newUser = await this.model.registerUser(result.data)
 

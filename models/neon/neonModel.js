@@ -18,6 +18,20 @@ export class Model {
     try {
       const Users = UsersModel(sequelize)
 
+      const existingUserEmail = await Users.findOne({
+        where: {
+          email: user.email
+        }
+      })
+
+      const existingUserName = await Users.findOne({
+        where: {
+          username: user.username
+        }
+      })
+
+      if (existingUserEmail || existingUserName) throw new Error('User alredy exists')
+
       const hashedPassword = await bcrypt.hash(user.password, 10)
 
       const newUser = await Users.create({
@@ -28,7 +42,12 @@ export class Model {
       return newUser
     } catch (e) {
       console.error('Error creating user:', e)
-      throw new Error('Error creating user')
+      throw new Error(e.message ?? 'Error creating user')
     }
+  }
+
+  static async loginUser () {
+    // const token = generateToken(user) // Pasa el objeto usuario directamente
+    // res.json({ message: 'Login exitoso', token })
   }
 }
