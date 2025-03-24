@@ -15,7 +15,7 @@ export const createApp = () => {
 
   app.use(authMiddleware)
 
-  app.use('/users', authMiddleware, usersRoutes({ model: UserModel }))
+  app.use('/users', usersRoutes({ model: UserModel }))
   // app.use('/likes', likesRoutes({ model }))
   // app.use('/properties', propertiesRoutes({ model }))
   // app.use('/chat', chatRoutes({ model }))

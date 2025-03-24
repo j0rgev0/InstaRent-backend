@@ -8,7 +8,7 @@ export const authMiddleware = (req, res, next) => {
 
   try {
     const secret = env.SIGNATURE
-    const decoded = jwt.verify(token.split(' ')[1], secret)
+    const decoded = jwt.verify(token, secret)
     req.user = decoded
     next()
   } catch (e) {

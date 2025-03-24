@@ -35,8 +35,24 @@ export class AuthModel {
     }
   }
 
-  static async loginUser () {
-    // const token = generateToken(user) // Pasa el objeto usuario directamente
-    // res.json({ message: 'Login exitoso', token })
+  static async loginUser ({ username, password }) {
+    try {
+      const Users = UsersModel(sequelize)
+
+      const user = await Users.findOne({
+        where: { username }
+      })
+
+      if (!user) throw new Error('User not found')
+
+      const isValidPassword = await bcrypt.compare(password, user.password)
+
+      if (!isValidPassword) throw new Error('Invalid password')
+
+      return user
+    } catch (e) {
+      console.error('Error logging in:', e)
+      throw new Error(e.message ?? 'Login error')
+    }
   }
 }
