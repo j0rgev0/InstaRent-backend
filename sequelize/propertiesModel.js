@@ -1,0 +1,102 @@
+import { DataTypes } from 'sequelize'
+
+export const PropertiesModel = (sequelize) => {
+  return sequelize.define(
+    'properties',
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
+      bedrooms: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      bathrooms: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      furnished: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false
+      },
+      size: {
+        type: DataTypes.DOUBLE,
+        allowNull: false
+      },
+      price: {
+        type: DataTypes.DOUBLE,
+        allowNull: false
+      },
+      zip_code: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+      },
+      latitude: {
+        type: DataTypes.DOUBLE,
+        allowNull: false
+      },
+      longitude: {
+        type: DataTypes.DOUBLE,
+        allowNull: false
+      },
+      construction_date: {
+        type: DataTypes.DATE,
+        allowNull: false
+      },
+      floor: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      province: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      country: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      video: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true
+      },
+      neighborhood: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      condition: {
+        type: DataTypes.ENUM('new', 'excellent', 'good', 'fair', 'to_renovate', 'ruin'),
+        defaultValue: 'good',
+        allowNull: false
+      },
+      operation: {
+        type: DataTypes.ENUM('sale', 'rent'),
+        defaultValue: 'rent',
+        allowNull: false
+      },
+      type: {
+        type: DataTypes.ENUM('apartment', 'house', 'office', 'land', 'garage', 'storage', 'room', 'building', 'local', 'other'),
+        defaultValue: 'other',
+        allowNull: false
+      }
+    },
+    {
+      timestamps: true,
+      underscored: true
+    }
+  )
+}
