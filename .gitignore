@@ -1,12 +1,10 @@
-# local env files
+
 .env
 
 getAPI.js
 
-# dependencies
 node_modules/
 
-# debug
 npm-debug.*
 yarn-debug.*
 yarn-error.*
