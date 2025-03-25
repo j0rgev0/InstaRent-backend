@@ -1,25 +1,15 @@
 meta {
-  name: editUser
+  name: deleteUser
   type: http
-  seq: 4
+  seq: 3
 }
 
-patch {
+delete {
   url: http://localhost:3000/users/5c3e56fe-0edd-4cc4-a6fb-a9c7e034aca4
-  body: json
+  body: none
   auth: bearer
 }
 
 auth:bearer {
   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YmE0MDJiOC1hZWRiLTRiNDctOWE0NC00OWZiMjRmNmVmZTciLCJyb2xlIjoidGVuYW50IiwiaWF0IjoxNzQyODQwNTIxLCJleHAiOjE3NDM0NDUzMjF9.uVN7GCcWaf_6TR_v9uW536cZIGcyKbaEP0tj4YGOYWU
-}
-
-body:json {
-  {
-    "username": "user",
-    "name": "User User",
-    "email": "err@example.com",
-    "role":"tenant",
-    "password": "123456"
-  }
 }

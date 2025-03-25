@@ -19,11 +19,31 @@ export class UsersController {
     }
   }
 
+  getById = async (req, res) => {
+    try {
+      const { id } = req.params
+      if (!id) return res.status(400).json({ error: 'User id is required' })
+
+      const user = await this.model.getUserById(id)
+
+      if (!user) return res.status(404).json({ error: 'User not found' })
+
+      res.json(user)
+    } catch (e) {
+      console.error('Error updating user:', e)
+      res.status(500).json({ error: e.message ?? 'Internal server error' })
+    }
+  }
+
   edit = async (req, res) => {
     try {
       const { id } = req.params
       const result = validatePartialUser(req.body)
-      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+      if (!result.success) {
+        throw new Error(
+          result.error.errors.map((err) => err.message).join(',')
+        )
+      }
 
       const updatedUser = await this.model.edit({ id, ...result.data })
 
@@ -31,15 +51,30 @@ export class UsersController {
         return res.status(404).json({ error: 'User not found' })
       }
 
-      res.json(
-        {
-          message: 'User updated successfull',
-          user: updatedUser
-        }
-      )
+      res.json({
+        message: 'User updated successfull',
+        user: updatedUser
+      })
     } catch (e) {
       console.error('Error updating user:', e)
       res.status(500).json({ error: e.message ?? 'Internal server error' })
+    }
+  }
+
+  delete = async (req, res) => {
+    try {
+      const { id } = req.params
+
+      if (!id) return res.status(400).json({ error: 'User id is required' })
+
+      const result = await this.model.deleteUser(id)
+
+      if (result === 0) return res.status(404).json({ error: 'User not found or already deleted' })
+
+      res.json({ message: 'User deleted successfully' })
+    } catch (e) {
+      console.error('Error deleting user:', e)
+      res.status(500).json({ error: e.message })
     }
   }
 }

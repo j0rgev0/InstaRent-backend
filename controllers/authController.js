@@ -13,9 +13,11 @@ export class AuthController {
 
       const newUser = await this.model.registerUser(result.data)
 
+      const { password: _, ...publicUser } = newUser.get()
+
       res.status(201).json({
         message: 'Usuario created successfully',
-        user: newUser
+        user: publicUser
       })
     } catch (e) {
       console.error('Error creating user:', e)

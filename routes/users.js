@@ -6,9 +6,9 @@ export const usersRoutes = ({ model }) => {
   const usersController = new UsersController({ model })
 
   usersRouter.get('/', usersController.getAll)
-  //   usersRouter.get('/:id', usersController.getById)
+  usersRouter.get('/:id', usersController.getById)
   usersRouter.patch('/:id', usersController.edit)
-  //   usersRouter.delete('/:id', usersController.delete)
+  usersRouter.delete('/:id', usersController.delete)
 
   return usersRouter
 }
