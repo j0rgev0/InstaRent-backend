@@ -8,9 +8,7 @@ export class UsersController {
     try {
       const usersJSON = await this.model.getAllUsers()
 
-      if (!usersJSON.length) {
-        return res.status(404).json({ message: 'No users found' })
-      }
+      if (!usersJSON.length) return res.status(404).json({ message: 'No users found' })
 
       res.json(usersJSON)
     } catch (e) {
