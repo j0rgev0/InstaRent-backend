@@ -5,9 +5,7 @@ import bcrypt from 'bcrypt'
 export class UserModel {
   static async getAllUsers () {
     const Users = UsersModel(sequelize)
-    const users = await Users.findAll({
-      attributes: ['id', 'username', 'name', 'email', 'role', 'created_at', 'updated_at']
-    })
+    const users = await Users.findAll()
     if (!users) {
       throw new Error('No users found')
     }

@@ -4,6 +4,8 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "bugs": {
+    "start": "node ",
     "url": "https://github.com/j0rgev0/Instarent-backend/issues"
   },
   "homepage": "https://github.com/j0rgev0/Instarent-backend#readme",
