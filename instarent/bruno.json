@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "instarent",
+  "name": "collection",
   "type": "collection",
   "ignore": [
     "node_modules",
