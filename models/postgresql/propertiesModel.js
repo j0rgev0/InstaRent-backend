@@ -1,8 +1,8 @@
 import { Op } from 'sequelize'
 import sequelize, { Properties, Features, Images } from '../../config/db.js'
 
-export class PropertieModel {
-  static async getAllProperties ({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation, minSize, maxSize }) {
+export class PropertiesModel {
+  static async getAllProperties ({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation, minSize, maxSize, country }) {
     try {
       const whereConditions = {}
 
@@ -20,6 +20,10 @@ export class PropertieModel {
 
       if (condition) {
         whereConditions.condition = condition.toLowerCase()
+      }
+
+      if (country) {
+        whereConditions.country = country.toLowerCase()
       }
 
       if (street) {
@@ -107,7 +111,7 @@ export class PropertieModel {
 
   static async getPropertyById (id) {
     try {
-      const propertie = await Properties.findOne({
+      const property = await Properties.findOne({
         where: { id },
         include: [
           {
@@ -121,32 +125,33 @@ export class PropertieModel {
         ]
       })
 
-      if (!propertie) throw new Error('Propertie not found')
+      if (!property) throw new Error('Property not found')
 
-      return propertie
+      return property
     } catch (e) {
-      console.error('Error getting propertie:', e)
-      throw new Error(e.message ?? 'Error getting propertie')
+      console.error('Error getting property:', e)
+      throw new Error(e.message ?? 'Error getting property')
     }
   }
 
-  static async createProperty (property) {
+  static async createProperties (property) {
     try {
-      const existingPropertie = await Properties.findOne({
+      const existingProperty = await Properties.findOne({
         where: {
           longitude: property.longitude,
           latitude: property.latitude
         }
       })
 
-      if (existingPropertie) throw new Error('Propertie already exists')
+      if (existingProperty) throw new Error('Property already exists')
 
-      const newPropertie = await Properties.create({
+      const newProperty = await Properties.create({
         ...property,
         city: property.city.toLowerCase(),
         province: property.province.toLowerCase(),
         type: property.type.toLowerCase(),
         condition: property.condition.toLowerCase(),
+        country: property.country.toLowerCase(),
         operation: property.operation.toLowerCase(),
         street: property.street.toLowerCase(),
         latitude: property.latitude.toUpperCase(),
@@ -155,29 +160,58 @@ export class PropertieModel {
         id: sequelize.UUIDV4
       })
 
-      return newPropertie
+      return newProperty
     } catch (e) {
-      console.error('Error creating propertie:', e)
-      throw new Error(e.message ?? 'Error creating propertie')
+      console.error('Error creating property:', e)
+      throw new Error(e.message ?? 'Error creating property')
     }
   }
 
-  static async deleteProperty (id) {
+  static async deleteProperties (id) {
     try {
-      const propertie = await Properties.findOne({
+      const property = await Properties.findOne({
         where: { id }
       })
 
-      if (!propertie) throw new Error('Propertie not found')
+      if (!property) throw new Error('Property not found')
 
-      const result = await propertie.destroy()
+      const result = await property.destroy()
 
-      if (result === 0) throw new Error('Error deleting propertie')
+      if (result === 0) throw new Error('Error deleting property')
 
-      return { message: 'Propertie deleted successfully' }
+      return { message: 'Property deleted successfully' }
     } catch (e) {
-      console.error('Error deleting propertie:', e)
-      throw new Error(e.message ?? 'Error deleting propertie')
+      console.error('Error deleting property:', e)
+      throw new Error(e.message ?? 'Error deleting property')
+    }
+  }
+
+  static async updateProperties (property) {
+    try {
+      const updatedProperty = await Properties.findOne({
+        where: { id: property.id }
+      })
+
+      if (!updatedProperty) throw new Error('Propertie not found')
+
+      await updatedProperty.update({
+        ...property,
+        city: property.city.toLowerCase(),
+        province: property.province.toLowerCase(),
+        type: property.type.toLowerCase(),
+        condition: property.condition.toLowerCase(),
+        country: property.country.toLowerCase(),
+        operation: property.operation.toLowerCase(),
+        street: property.street.toLowerCase(),
+        latitude: property.latitude.toUpperCase(),
+        longitude: property.longitude.toUpperCase(),
+        neighborhood: property.neighborhood.toLowerCase()
+      })
+
+      return updatedProperty
+    } catch (e) {
+      console.error('Error updating propertie:', e)
+      throw new Error(e.message ?? 'Error updating propertie')
     }
   }
 }

@@ -9,7 +9,7 @@ import { propertiesRoutes } from './routes/properties.js'
 
 import { AuthModel } from './models/postgresql/authModel.js'
 import { UserModel } from './models/postgresql/userModel.js'
-import { PropertieModel } from './models/postgresql/propertiesModel.js'
+import { PropertiesModel } from './models/postgresql/propertiesModel.js'
 
 export const createApp = () => {
   const app = express()
@@ -20,7 +20,7 @@ export const createApp = () => {
   app.use(authMiddleware)
 
   app.use('/users', usersRoutes({ model: UserModel }))
-  app.use('/properties', propertiesRoutes({ model: PropertieModel }))
+  app.use('/properties', propertiesRoutes({ model: PropertiesModel }))
   // app.use('/likes', likesRoutes({ model }))
   // app.use('/chat', chatRoutes({ model }))
 

@@ -20,8 +20,9 @@ export class PropertiesController {
       const { maxSize } = req.query
       const { minSize } = req.query
       const { operation } = req.query
+      const { country } = req.query
 
-      const properties = await this.model.getAllProperties({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation, minSize, maxSize })
+      const properties = await this.model.getAllProperties({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation, minSize, maxSize, country })
 
       if (!properties.length) return res.status(404).json({ message: 'No properties found' })
 
@@ -35,13 +36,13 @@ export class PropertiesController {
   getById = async (req, res) => {
     try {
       const { id } = req.params
-      const propertie = await this.model.getPropertyById(id)
+      const property = await this.model.getPropertyById(id)
 
-      if (!propertie) return res.status(404).json({ error: 'Propertie not found' })
+      if (!property) return res.status(404).json({ error: 'property not found' })
 
-      res.json(propertie)
+      res.json(property)
     } catch (e) {
-      console.error('Error getting propertie:', e)
+      console.error('Error getting property:', e)
       res.status(500).json({ error: e.message ?? 'Internal server error' })
     }
   }
@@ -52,14 +53,14 @@ export class PropertiesController {
 
       if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
 
-      const newPropertie = await this.model.createProperty(result.data)
+      const newProperty = await this.model.createProperties(result.data)
 
       res.status(201).json({
-        message: 'Propertie created successfully',
-        propertie: newPropertie
+        message: 'Property created successfully',
+        property: newProperty
       })
     } catch (e) {
-      console.error('Error creating propertie:', e)
+      console.error('Error creating property:', e)
       res.status(500).json({ error: e.message ?? 'Internal server error' })
     }
   }
@@ -68,31 +69,36 @@ export class PropertiesController {
     try {
       const { id } = req.params
 
-      if (!id) return res.status(400).json({ error: 'Propertie id is required' })
+      if (!id) return res.status(400).json({ error: 'Property id is required' })
 
-      const result = await this.model.deleteProperty(id)
+      const result = await this.model.deleteProperties(id)
 
       if (result === 0) return res.status(404).json({ error: 'User not found or already deleted' })
 
       res.json({ message: 'User deleted successfully' })
     } catch (e) {
-      console.error('Error deleting propertie:', e)
+      console.error('Error deleting property:', e)
       res.status(500).json({ error: e.message ?? 'Internal server error' })
     }
   }
 
-  edit = async (req, res) => {
+  update = async (req, res) => {
     try {
       const { id } = req.params
       const result = validatePartialProperty(req.body)
 
       if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
 
-      
+      const updatedProperty = await this.model.updateProperties({ id, ...result.data })
 
-      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+      if (!updatedProperty) return res.status(404).json({ error: 'error updating property' })
+
+      res.status(200).json({
+        message: 'Property updated successfully',
+        property: updatedProperty
+      })
     } catch (e) {
-      console.error('Error editing propertie:', e)
+      console.error('Error editing property:', e)
     }
   }
 }

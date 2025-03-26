@@ -33,7 +33,7 @@ export class UsersController {
     }
   }
 
-  edit = async (req, res) => {
+  update = async (req, res) => {
     try {
       const { id } = req.params
       const result = validatePartialUser(req.body)
@@ -42,9 +42,7 @@ export class UsersController {
 
       const updatedUser = await this.model.edit({ id, ...result.data })
 
-      if (!updatedUser) {
-        return res.status(404).json({ error: 'User not found' })
-      }
+      if (!updatedUser) { return res.status(404).json({ error: 'User not found' }) }
 
       res.json({
         message: 'User updated successfull',
