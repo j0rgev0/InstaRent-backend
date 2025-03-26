@@ -1,4 +1,4 @@
-import { validateProperty } from '../schemas/properties.js'
+import { validateProperty, validatePartialProperty } from '../schemas/properties.js'
 export class PropertiesController {
   constructor ({ model }) {
     this.model = model
@@ -20,6 +20,7 @@ export class PropertiesController {
       const { maxSize } = req.query
       const { minSize } = req.query
       const { operation } = req.query
+
       const properties = await this.model.getAllProperties({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation, minSize, maxSize })
 
       if (!properties.length) return res.status(404).json({ message: 'No properties found' })
@@ -77,6 +78,21 @@ export class PropertiesController {
     } catch (e) {
       console.error('Error deleting propertie:', e)
       res.status(500).json({ error: e.message ?? 'Internal server error' })
+    }
+  }
+
+  edit = async (req, res) => {
+    try {
+      const { id } = req.params
+      const result = validatePartialProperty(req.body)
+
+      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+
+      
+
+      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+    } catch (e) {
+      console.error('Error editing propertie:', e)
     }
   }
 }

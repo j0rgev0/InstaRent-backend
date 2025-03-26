@@ -37,6 +37,7 @@ export class UsersController {
     try {
       const { id } = req.params
       const result = validatePartialUser(req.body)
+
       if (!result.success) { throw new Error(result.error.errors.map((err) => err.message).join(',')) }
 
       const updatedUser = await this.model.edit({ id, ...result.data })
