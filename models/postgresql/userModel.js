@@ -1,10 +1,8 @@
-import { UsersModel } from '../../sequelize/usersModel.js'
-import sequelize from '../../config/db.js'
+import { Users } from '../../config/db.js'
 import bcrypt from 'bcrypt'
 
 export class UserModel {
   static async getAllUsers () {
-    const Users = UsersModel(sequelize)
     const users = await Users.findAll({
       attributes: { exclude: ['password'] }
     })
@@ -16,7 +14,6 @@ export class UserModel {
 
   static async getUserById (id) {
     try {
-      const Users = UsersModel(sequelize)
       const user = await Users.findOne({
         where: { id },
         attributes: { exclude: ['password'] }
@@ -32,7 +29,6 @@ export class UserModel {
 
   static async edit (user) {
     try {
-      const Users = UsersModel(sequelize)
       const updatedUser = await Users.findOne({
         where: {
           id: user.id
@@ -57,7 +53,6 @@ export class UserModel {
 
   static async deleteUser (id) {
     try {
-      const Users = UsersModel(sequelize)
       const user = await Users.findOne({
         where: { id }
       })

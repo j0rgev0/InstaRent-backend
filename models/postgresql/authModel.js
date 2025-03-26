@@ -1,12 +1,9 @@
-import { UsersModel } from '../../sequelize/usersModel.js'
-import sequelize from '../../config/db.js'
+import sequelize, { Users } from '../../config/db.js'
 import bcrypt from 'bcrypt'
 
 export class AuthModel {
   static async registerUser (user) {
     try {
-      const Users = UsersModel(sequelize)
-
       const existingUserEmail = await Users.findOne({
         where: {
           email: user.email
@@ -38,8 +35,6 @@ export class AuthModel {
 
   static async loginUser ({ username, password }) {
     try {
-      const Users = UsersModel(sequelize)
-
       const user = await Users.findOne({
         where: { username }
       })

@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 
 export const PropertiesModel = (sequelize) => {
-  return sequelize.define(
+  const Properties = sequelize.define(
     'properties',
     {
       id: {
@@ -99,4 +99,13 @@ export const PropertiesModel = (sequelize) => {
       underscored: true
     }
   )
+
+  Properties.associate = (models) => {
+    Properties.hasMany(models.Features, {
+      foreingKey: 'property_id',
+      as: 'features',
+      onDelete: 'CASCADE'
+    })
+  }
+  return Properties
 }
