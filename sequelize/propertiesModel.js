@@ -9,11 +9,6 @@ export const PropertiesModel = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
-      address: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-      },
       bedrooms: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -46,9 +41,9 @@ export const PropertiesModel = (sequelize) => {
         type: DataTypes.DOUBLE,
         allowNull: false
       },
-      construction_date: {
-        type: DataTypes.DATE,
-        allowNull: false
+      construction_year: {
+        type: DataTypes.INTEGER,
+        allowNull: true
       },
       floor: {
         type: DataTypes.INTEGER,
@@ -91,6 +86,14 @@ export const PropertiesModel = (sequelize) => {
       type: {
         type: DataTypes.ENUM('apartment', 'house', 'office', 'land', 'garage', 'storage', 'room', 'building', 'local', 'other'),
         defaultValue: 'other',
+        allowNull: false
+      },
+      door: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      street: {
+        type: DataTypes.STRING,
         allowNull: false
       }
     },
