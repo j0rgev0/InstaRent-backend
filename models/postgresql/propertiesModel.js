@@ -2,7 +2,17 @@ import { Op } from 'sequelize'
 import { Properties, Features, Images } from '../../config/db.js'
 
 export class PropertieModel {
-  static async getAllProperties ({ features, province, city, type }) {
+  static async getAllProperties ({
+    features,
+    province,
+    city,
+    type,
+    condition,
+    street,
+    constructionYear,
+    latitude,
+    longitude
+  }) {
     try {
       const whereConditions = {}
 
@@ -16,6 +26,26 @@ export class PropertieModel {
 
       if (type) {
         whereConditions.type = type.toLowerCase()
+      }
+
+      if (condition) {
+        whereConditions.condition = condition.toLowerCase()
+      }
+
+      if (street) {
+        const formattedStreet = street.replace(/-/g, ' ')
+        whereConditions.street = {
+          [Op.iLike]: `%${formattedStreet}%`
+        }
+      }
+
+      if (constructionYear) {
+        whereConditions.construction_year = constructionYear
+      }
+
+      if (latitude && longitude) {
+        whereConditions.latitude = latitude
+        whereConditions.longitude = longitude
       }
 
       const include = [
@@ -37,7 +67,6 @@ export class PropertieModel {
         }
       }
 
-      // Consulta con los filtros dinámicos
       const properties = await Properties.findAll({
         where: whereConditions,
         include

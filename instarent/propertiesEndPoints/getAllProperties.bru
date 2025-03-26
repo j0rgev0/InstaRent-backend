@@ -1,17 +1,13 @@
 meta {
-  name: getAllByType
+  name: getAllProperties
   type: http
-  seq: 13
+  seq: 1
 }
 
 get {
-  url: http://localhost:3000/properties?city=seseña
+  url: http://localhost:3000/properties
   body: none
   auth: bearer
-}
-
-params:query {
-  city: seseña
 }
 
 auth:bearer {

@@ -9,7 +9,12 @@ export class PropertiesController {
       const { province } = req.query
       const { city } = req.query
       const { type } = req.query
-      const properties = await this.model.getAllProperties({ features, province, city, type })
+      const { condition } = req.query
+      const { street } = req.query
+      const { constructionYear } = req.query
+      const { latitude } = req.query
+      const { longitude } = req.query
+      const properties = await this.model.getAllProperties({ features, province, city, type, condition, street, constructionYear, latitude, longitude })
 
       if (!properties.length) return res.status(404).json({ message: 'No properties found' })
 

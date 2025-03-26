@@ -34,11 +34,11 @@ export const PropertiesModel = (sequelize) => {
         allowNull: false
       },
       latitude: {
-        type: DataTypes.DOUBLE,
+        type: DataTypes.TEXT,
         allowNull: false
       },
       longitude: {
-        type: DataTypes.DOUBLE,
+        type: DataTypes.TEXT,
         allowNull: false
       },
       construction_year: {

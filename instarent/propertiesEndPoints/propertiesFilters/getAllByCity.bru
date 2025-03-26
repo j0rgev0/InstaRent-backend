@@ -1,13 +1,17 @@
 meta {
-  name: getPropertyById
+  name: getAllByCity
   type: http
-  seq: 9
+  seq: 2
 }
 
 get {
-  url: http://localhost:3000/properties/363bc548-0765-11f0-afdd-00155d380100
+  url: http://localhost:3000/properties?city=seseña
   body: none
   auth: bearer
+}
+
+params:query {
+  city: seseña
 }
 
 auth:bearer {

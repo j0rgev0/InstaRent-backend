@@ -1,17 +1,17 @@
 meta {
-  name: getAllByCity
+  name: getAllByCondition
   type: http
-  seq: 12
+  seq: 5
 }
 
 get {
-  url: http://localhost:3000/properties?city=seseña
+  url: http://localhost:3000/properties?condition=excellent
   body: none
   auth: bearer
 }
 
 params:query {
-  city: seseña
+  condition: excellent
 }
 
 auth:bearer {
