@@ -5,7 +5,7 @@ export const propertySchema = z.object({
   bathrooms: z.number().int().min(0, { message: 'Bathrooms must be at least 0' }),
   size: z.number().positive({ message: 'Size must be a positive number' }),
   price: z.number().positive({ message: 'Price must be a positive number' }),
-  zip_code: z.number().int().positive({ message: 'Zip code must be a positive integer' }),
+  zip_code: z.string().min(1, { message: 'Zip code is required' }),
   latitude: z.string().min(1, { message: 'Latitude is required' }),
   longitude: z.string().min(1, { message: 'Longitude is required' }),
   floor: z.number().int().optional(),

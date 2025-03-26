@@ -30,7 +30,7 @@ export const PropertiesModel = (sequelize) => {
         allowNull: false
       },
       zip_code: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
       },
       latitude: {

@@ -62,4 +62,21 @@ export class PropertiesController {
       res.status(500).json({ error: e.message ?? 'Internal server error' })
     }
   }
+
+  delete = async (req, res) => {
+    try {
+      const { id } = req.params
+
+      if (!id) return res.status(400).json({ error: 'Propertie id is required' })
+
+      const result = await this.model.deleteProperty(id)
+
+      if (result === 0) return res.status(404).json({ error: 'User not found or already deleted' })
+
+      res.json({ message: 'User deleted successfully' })
+    } catch (e) {
+      console.error('Error deleting propertie:', e)
+      res.status(500).json({ error: e.message ?? 'Internal server error' })
+    }
+  }
 }

@@ -143,6 +143,15 @@ export class PropertieModel {
 
       const newPropertie = await Properties.create({
         ...property,
+        city: property.city.toLowerCase(),
+        province: property.province.toLowerCase(),
+        type: property.type.toLowerCase(),
+        condition: property.condition.toLowerCase(),
+        operation: property.operation.toLowerCase(),
+        street: property.street.toLowerCase(),
+        latitude: property.latitude.toUpperCase(),
+        longitude: property.longitude.toUpperCase(),
+        neighborhood: property.neighborhood.toLowerCase(),
         id: sequelize.UUIDV4
       })
 
@@ -150,6 +159,25 @@ export class PropertieModel {
     } catch (e) {
       console.error('Error creating propertie:', e)
       throw new Error(e.message ?? 'Error creating propertie')
+    }
+  }
+
+  static async deleteProperty (id) {
+    try {
+      const propertie = await Properties.findOne({
+        where: { id }
+      })
+
+      if (!propertie) throw new Error('Propertie not found')
+
+      const result = await propertie.destroy()
+
+      if (result === 0) throw new Error('Error deleting propertie')
+
+      return { message: 'Propertie deleted successfully' }
+    } catch (e) {
+      console.error('Error deleting propertie:', e)
+      throw new Error(e.message ?? 'Error deleting propertie')
     }
   }
 }

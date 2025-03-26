@@ -7,8 +7,8 @@ export const propertiesRoutes = ({ model }) => {
   propertiesRouter.get('/', propertiesController.getAll)
   propertiesRouter.get('/:id', propertiesController.getById)
   propertiesRouter.post('/new', propertiesController.create)
-  // propertiesRouter.patch('/:id', propertiesController.edit)
-  // propertiesRouter.delete('/:id', propertiesController.delete)
+  propertiesRouter.patch('edit/:id', propertiesController.edit)
+  propertiesRouter.delete('/delete/:id', propertiesController.delete)
 
   return propertiesRouter
 }
