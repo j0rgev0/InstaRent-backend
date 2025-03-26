@@ -2,7 +2,7 @@ import { Op } from 'sequelize'
 import { Properties, Features, Images } from '../../config/db.js'
 
 export class PropertieModel {
-  static async getAllProperties ({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation }) {
+  static async getAllProperties ({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation, minSize, maxSize }) {
     try {
       const whereConditions = {}
 
@@ -31,6 +31,20 @@ export class PropertieModel {
 
       if (operation) {
         whereConditions.operation = operation.toLowerCase()
+      }
+
+      if (minSize && maxSize) {
+        whereConditions.size = {
+          [Op.between]: [Number(minSize), Number(maxSize)]
+        }
+      } else if (minSize) {
+        whereConditions.size = {
+          [Op.gte]: Number(minSize)
+        }
+      } else if (maxSize) {
+        whereConditions.size = {
+          [Op.lte]: Number(maxSize)
+        }
       }
 
       if (minPrice && maxPrice) {
