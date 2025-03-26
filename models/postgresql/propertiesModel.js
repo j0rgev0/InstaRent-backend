@@ -1,5 +1,5 @@
 import { Op } from 'sequelize'
-import { Properties, Features, Images } from '../../config/db.js'
+import sequelize, { Properties, Features, Images } from '../../config/db.js'
 
 export class PropertieModel {
   static async getAllProperties ({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation, minSize, maxSize }) {
@@ -127,6 +127,29 @@ export class PropertieModel {
     } catch (e) {
       console.error('Error getting propertie:', e)
       throw new Error(e.message ?? 'Error getting propertie')
+    }
+  }
+
+  static async createProperty (property) {
+    try {
+      const existingPropertie = await Properties.findOne({
+        where: {
+          longitude: property.longitude,
+          latitude: property.latitude
+        }
+      })
+
+      if (existingPropertie) throw new Error('Propertie already exists')
+
+      const newPropertie = await Properties.create({
+        ...property,
+        id: sequelize.UUIDV4
+      })
+
+      return newPropertie
+    } catch (e) {
+      console.error('Error creating propertie:', e)
+      throw new Error(e.message ?? 'Error creating propertie')
     }
   }
 }

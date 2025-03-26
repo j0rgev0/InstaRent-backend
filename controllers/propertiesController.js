@@ -1,3 +1,4 @@
+import { validateProperty } from '../schemas/properties.js'
 export class PropertiesController {
   constructor ({ model }) {
     this.model = model
@@ -40,6 +41,24 @@ export class PropertiesController {
       res.json(propertie)
     } catch (e) {
       console.error('Error getting propertie:', e)
+      res.status(500).json({ error: e.message ?? 'Internal server error' })
+    }
+  }
+
+  create = async (req, res) => {
+    try {
+      const result = validateProperty(req.body)
+
+      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+
+      const newPropertie = await this.model.createProperty(result.data)
+
+      res.status(201).json({
+        message: 'Propertie created successfully',
+        propertie: newPropertie
+      })
+    } catch (e) {
+      console.error('Error creating propertie:', e)
       res.status(500).json({ error: e.message ?? 'Internal server error' })
     }
   }

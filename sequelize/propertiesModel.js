@@ -90,7 +90,7 @@ export const PropertiesModel = (sequelize) => {
       },
       door: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       street: {
         type: DataTypes.STRING,
