@@ -2,17 +2,7 @@ import { Op } from 'sequelize'
 import { Properties, Features, Images } from '../../config/db.js'
 
 export class PropertieModel {
-  static async getAllProperties ({
-    features,
-    province,
-    city,
-    type,
-    condition,
-    street,
-    constructionYear,
-    latitude,
-    longitude
-  }) {
+  static async getAllProperties ({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation }) {
     try {
       const whereConditions = {}
 
@@ -36,6 +26,24 @@ export class PropertieModel {
         const formattedStreet = street.replace(/-/g, ' ')
         whereConditions.street = {
           [Op.iLike]: `%${formattedStreet}%`
+        }
+      }
+
+      if (operation) {
+        whereConditions.operation = operation.toLowerCase()
+      }
+
+      if (minPrice && maxPrice) {
+        whereConditions.price = {
+          [Op.between]: [Number(minPrice), Number(maxPrice)]
+        }
+      } else if (minPrice) {
+        whereConditions.price = {
+          [Op.gte]: Number(minPrice)
+        }
+      } else if (maxPrice) {
+        whereConditions.price = {
+          [Op.lte]: Number(maxPrice)
         }
       }
 
