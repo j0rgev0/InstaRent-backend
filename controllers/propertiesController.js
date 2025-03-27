@@ -99,6 +99,7 @@ export class PropertiesController {
       })
     } catch (e) {
       console.error('Error editing property:', e)
+      res.status(500).json({ error: e.message ?? 'Internal server error' })
     }
   }
 }
