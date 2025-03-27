@@ -5,7 +5,8 @@ export class FeaturesController {
 
   getAll = async (req, res) => {
     try {
-      const features = await this.model.getAllFeatures()
+      const { name } = req.query
+      const features = await this.model.getAllFeatures({ name })
       res.json(features)
     } catch (e) {
       console.error('Error getting features:', e)
