@@ -1,11 +1,13 @@
 import { Features } from '../../config/db.js'
 
 export class FeaturesModel {
-  static async getAllFeatures ({ name }) {
+  static async getAllFeatures ({ name, property }) {
     try {
       const conditions = {}
 
       if (name) conditions.name = name
+
+      if (property) conditions.property_id = property
 
       const features = await Features.findAll({
         where: conditions
