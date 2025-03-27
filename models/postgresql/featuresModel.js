@@ -1,9 +1,15 @@
 import { Features } from '../../config/db.js'
 
 export class FeaturesModel {
-  static async getAllFeatures () {
+  static async getAllFeatures ({ name }) {
     try {
-      const features = await Features.findAll()
+      const conditions = {}
+
+      if (name) conditions.name = name
+
+      const features = await Features.findAll({
+        where: conditions
+      })
 
       if (!features) throw new Error('No features found')
 
