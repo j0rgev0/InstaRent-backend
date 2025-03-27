@@ -6,9 +6,9 @@ export class UserModel {
     const users = await Users.findAll({
       attributes: { exclude: ['password'] }
     })
-    if (!users) {
-      throw new Error('No users found')
-    }
+
+    if (!users) throw new Error('No users found')
+
     return users
   }
 
