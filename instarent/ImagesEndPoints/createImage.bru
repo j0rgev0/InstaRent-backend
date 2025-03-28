@@ -1,11 +1,11 @@
 meta {
-  name: createFeature
+  name: createImage
   type: http
-  seq: 3
+  seq: 4
 }
 
 post {
-  url: http://localhost:3000/features/new
+  url: http://localhost:3000/images/new
   body: json
   auth: bearer
 }
@@ -17,6 +17,6 @@ auth:bearer {
 body:json {
   {
     "property_id": "d5762680-ead2-4881-9038-0a1214c21c8c",
-    "name": "garden"
+    "url": "http://imageurl.es"
   }
 }

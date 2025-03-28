@@ -1,11 +1,11 @@
 meta {
-  name: createFeature
+  name: editImage
   type: http
-  seq: 3
+  seq: 5
 }
 
-post {
-  url: http://localhost:3000/features/new
+patch {
+  url: http://localhost:3000/images/edit/516e0ff4-df93-4feb-bae0-2d55f6b9a688
   body: json
   auth: bearer
 }
@@ -16,7 +16,7 @@ auth:bearer {
 
 body:json {
   {
-    "property_id": "d5762680-ead2-4881-9038-0a1214c21c8c",
-    "name": "garden"
+    "property_id": "852998fb-c6c7-4e7f-868f-7bdbb7488ee2",
+    "url": "http://imageurl.es"
   }
 }

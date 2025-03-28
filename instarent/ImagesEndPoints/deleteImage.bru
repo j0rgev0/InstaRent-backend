@@ -1,22 +1,15 @@
 meta {
-  name: createFeature
+  name: deleteImage
   type: http
-  seq: 3
+  seq: 6
 }
 
-post {
-  url: http://localhost:3000/features/new
-  body: json
+delete {
+  url: http://localhost:3000/images/delete/aa364740-0cb6-4be9-858a-05c660f3d0f1
+  body: none
   auth: bearer
 }
 
 auth:bearer {
   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YmE0MDJiOC1hZWRiLTRiNDctOWE0NC00OWZiMjRmNmVmZTciLCJyb2xlIjoidGVuYW50IiwiaWF0IjoxNzQyODQwNTIxLCJleHAiOjE3NDM0NDUzMjF9.uVN7GCcWaf_6TR_v9uW536cZIGcyKbaEP0tj4YGOYWU
-}
-
-body:json {
-  {
-    "property_id": "d5762680-ead2-4881-9038-0a1214c21c8c",
-    "name": "garden"
-  }
 }
