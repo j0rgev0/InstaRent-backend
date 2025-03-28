@@ -10,7 +10,7 @@ export const featuresRoutes = ({ model }) => {
   featuresRouter.get('/:id', featuresController.getById)
   featuresRouter.post('/new', featuresController.create)
   featuresRouter.patch('/edit/:id', featuresController.update)
-  //   featuresRouter.delete('/delete/:id', featuresController.delete)
+  featuresRouter.delete('/delete/:id', featuresController.delete)
 
   return featuresRouter
 }

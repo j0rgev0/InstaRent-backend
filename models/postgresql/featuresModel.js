@@ -88,4 +88,23 @@ export class FeaturesModel {
       throw new Error(e.message ?? 'Error updating feature')
     }
   }
+
+  static async deleteFeature (id) {
+    try {
+      const feature = await Features.findOne({
+        where: { id }
+      })
+
+      if (!feature) throw new Error('Feature not found')
+
+      const result = await feature.destroy()
+
+      if (result === 0) throw new Error('Error deleting feature')
+
+      return result
+    } catch (e) {
+      console.error('Error deleting feature:', e)
+      throw new Error(e.message ?? 'Error deleting feature')
+    }
+  }
 }

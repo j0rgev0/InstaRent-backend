@@ -73,9 +73,9 @@ export class PropertiesController {
 
       const result = await this.model.deleteProperties(id)
 
-      if (result === 0) return res.status(404).json({ error: 'User not found or already deleted' })
+      if (result === 0) return res.status(404).json({ error: 'Property not found or already deleted' })
 
-      res.json({ message: 'User deleted successfully' })
+      res.json({ message: 'Property deleted successfully' })
     } catch (e) {
       console.error('Error deleting property:', e)
       res.status(500).json({ error: e.message ?? 'Internal server error' })

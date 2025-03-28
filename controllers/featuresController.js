@@ -70,4 +70,21 @@ export class FeaturesController {
       res.status(500).json({ error: e.message ?? 'Internal server error' })
     }
   }
+
+  delete = async (req, res) => {
+    try {
+      const { id } = req.params
+
+      if (!id) return res.status(400).json({ error: 'Feature id is required' })
+
+      const result = await this.model.deleteFeature(id)
+
+      if (!result) return res.status(404).json({ error: 'Feature not found' })
+
+      res.json({ message: 'Feature deleted successfully' })
+    } catch (e) {
+      console.error('Error deleting feature:', e)
+      res.status(500).json({ error: e.message ?? 'Internal server error' })
+    }
+  }
 }
