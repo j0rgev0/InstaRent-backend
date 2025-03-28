@@ -1,19 +1,22 @@
 meta {
-  name: getAllFeaturesByName
+  name: createFeature
   type: http
-  seq: 1
+  seq: 3
 }
 
-get {
-  url: http://localhost:3000/features?name=garage
-  body: none
+post {
+  url: http://localhost:3000/features/new
+  body: json
   auth: bearer
-}
-
-params:query {
-  name: garage
 }
 
 auth:bearer {
   token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI5YmE0MDJiOC1hZWRiLTRiNDctOWE0NC00OWZiMjRmNmVmZTciLCJyb2xlIjoidGVuYW50IiwiaWF0IjoxNzQyODQwNTIxLCJleHAiOjE3NDM0NDUzMjF9.uVN7GCcWaf_6TR_v9uW536cZIGcyKbaEP0tj4YGOYWU
+}
+
+body:json {
+  {
+    "property_id": "852998fb-c6c7-4e7f-868f-7bdbb7488ee2",
+    "name": "garage"
+  }
 }

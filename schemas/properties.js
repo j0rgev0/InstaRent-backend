@@ -1,6 +1,6 @@
 import z from 'zod'
 
-export const propertySchema = z.object({
+const propertySchema = z.object({
   bedrooms: z.number().int().min(0, { message: 'Bedrooms must be at least 0' }),
   bathrooms: z.number().int().min(0, { message: 'Bathrooms must be at least 0' }),
   size: z.number().positive({ message: 'Size must be a positive number' }),

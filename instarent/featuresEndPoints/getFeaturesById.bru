@@ -1,17 +1,13 @@
 meta {
-  name: getAllFeaturesByName
+  name: getFeaturesById
   type: http
-  seq: 1
+  seq: 2
 }
 
 get {
-  url: http://localhost:3000/features?name=garage
+  url: http://localhost:3000/features/9f94caa5-5609-43a8-a80f-5e15d5d9a165
   body: none
   auth: bearer
-}
-
-params:query {
-  name: garage
 }
 
 auth:bearer {
