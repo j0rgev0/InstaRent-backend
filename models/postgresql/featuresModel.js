@@ -1,4 +1,4 @@
-import { Features } from '../../config/db.js'
+import { Features, Properties } from '../../config/db.js'
 
 export class FeaturesModel {
   static async getAllFeatures ({ name, property }) {
@@ -39,6 +39,12 @@ export class FeaturesModel {
 
   static async createFeature (feature) {
     try {
+      const property = await Properties.findOne({
+        where: { id: feature.property_id }
+      })
+
+      if (!property) throw new Error('Property not found')
+
       const featureFound = await Features.findOne({
         where: {
           property_id: feature.property_id,
@@ -64,6 +70,11 @@ export class FeaturesModel {
 
   static async updateFeature (feature) {
     try {
+      const property = await Properties.findOne({
+        where: { id: feature.property_id }
+      })
+
+      if (!property) throw new Error('Property not found')
       const featureFound = await Features.findOne({
         where: { id: feature.id }
       })
