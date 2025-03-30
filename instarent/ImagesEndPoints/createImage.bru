@@ -6,7 +6,7 @@ meta {
 
 post {
   url: http://localhost:3000/images/new
-  body: json
+  body: file
   auth: bearer
 }
 
@@ -19,4 +19,8 @@ body:json {
     "property_id": "d5762680-ead2-4881-9038-0a1214c21c8c",
     "url": "http://imageurl.es"
   }
+}
+
+body:file {
+  file: @file(C:\Users\jorge\OneDrive\Imágenes\xd\4FB2B254-71CB-49E5-941D-FC413ED2B3CE.jpg) @contentType(image/jpeg)
 }
