@@ -1,4 +1,7 @@
 import { validateImage, validatePartialImage } from '../schemas/images.js'
+import clouddinary from '../config/cloudinary.js'
+import fs from 'fs'
+
 export class ImagesController {
   constructor ({ model }) {
     this.model = model
@@ -33,7 +36,20 @@ export class ImagesController {
 
   create = async (req, res) => {
     try {
-      const result = validateImage(req.body)
+      if (!req.file) return res.status(400).json({ error: 'Image is required' })
+
+      const uploadResult = await clouddinary.uploader.upload(req.file.path, {
+        folder: 'instarent/properties',
+        resource_type: 'image'
+      })
+
+      fs.unlinkSync(req.file.path)
+
+      const result = validateImage({
+        ...req.body,
+        url: uploadResult.secure_url,
+        public_id: uploadResult.public_id
+      })
 
       if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
 
@@ -41,7 +57,7 @@ export class ImagesController {
 
       res.status(201).json({ message: 'Image created successfully', image: newImage })
     } catch (e) {
-      console.error('Error creating Image:', e)
+      console.error('Error uploading image:', e)
       res.status(500).json({ error: e.message ?? 'Internal server error' })
     }
   }
@@ -49,14 +65,31 @@ export class ImagesController {
   update = async (req, res) => {
     try {
       const { id } = req.params
-      const image = req.body
 
-      if (!image) return res.status(400).json({ error: 'Image is required' })
+      if (!id) return res.status(400).json({ error: 'Image id is required' })
 
-      const result = validatePartialImage(image)
+      const image = await this.model.getImageById(id)
+      if (!image) return res.status(404).json({ error: 'Image not found' })
+
+      const updatedData = { ...req.body }
+
+      if (req.file) {
+        await clouddinary.uploader.destroy(image.public_id)
+
+        const uploadResult = await clouddinary.uploader.upload(req.file.path, {
+          folder: 'instarent/properties',
+          resource_type: 'image'
+        })
+
+        await fs.promises.unlink(req.file.path)
+
+        updatedData.url = uploadResult.secure_url
+        updatedData.public_id = uploadResult.public_id
+      }
+
+      const result = validatePartialImage(updatedData)
 
       if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
-      if (!id) return res.status(400).json({ error: 'Image id is required' })
 
       const updatedImage = await this.model.updateImage({ id, ...result.data })
 
@@ -75,6 +108,12 @@ export class ImagesController {
       const { id } = req.params
 
       if (!id) return res.status(400).json({ error: 'Image id is required' })
+
+      const image = await this.model.getImageById(id)
+
+      if (!image) return res.status(404).json({ error: 'Image not found' })
+
+      await clouddinary.uploader.destroy(image.public_id)
 
       const result = await this.model.deleteImage(id)
 

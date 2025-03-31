@@ -22,6 +22,10 @@ export const ImagesModel = (sequelize) => {
       url: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      public_id: {
+        type: DataTypes.STRING,
+        allowNull: false
       }
     },
     {

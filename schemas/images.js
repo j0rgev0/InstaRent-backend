@@ -2,7 +2,8 @@ import z from 'zod'
 
 const imageSchema = z.object({
   property_id: z.string().uuid(),
-  url: z.string().min(1, { message: 'Name is required' })
+  url: z.string().min(1, { message: 'Name is required' }),
+  public_id: z.string().min(1, { message: 'Name is required' })
 })
 
 export function validateImage (input) {
