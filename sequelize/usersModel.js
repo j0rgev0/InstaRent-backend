@@ -34,6 +34,15 @@ export const UsersModel = (sequelize) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      provider: {
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      providerId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
       }
     },
     {
