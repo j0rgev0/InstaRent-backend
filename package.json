@@ -22,8 +22,10 @@
   "homepage": "https://github.com/j0rgev0/Instarent-backend#readme",
   "description": "",
   "dependencies": {
+    "@better-auth/expo": "^1.2.5",
     "@neondatabase/serverless": "^0.10.4",
     "bcrypt": "^5.1.1",
+    "better-auth": "^1.2.5",
     "cloudinary": "^2.6.0",
     "dotenv": "^16.4.7",
     "eslint": "^8.57.1",

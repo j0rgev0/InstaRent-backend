@@ -3,6 +3,9 @@ import express, { json } from 'express'
 import { env } from './config/env.js'
 import { authMiddleware } from './middlewares/auth.js'
 
+import { betterAuth } from 'better-auth'
+import { expo } from '@better-auth/expo'
+
 import { authRoutes } from './routes/auth.js'
 import { usersRoutes } from './routes/users.js'
 import { propertiesRoutes } from './routes/properties.js'
@@ -15,6 +18,9 @@ import { PropertiesModel } from './models/postgresql/propertiesModel.js'
 import { FeaturesModel } from './models/postgresql/featuresModel.js'
 import { ImagesModel } from './models/postgresql/imagesModel.js'
 
+export const auth = betterAuth({
+  plugins: [expo()] // Configuración para Expo
+})
 export const createApp = () => {
   const app = express()
   app.use(json())
