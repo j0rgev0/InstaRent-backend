@@ -10,7 +10,11 @@ export const imagesRoutes = ({ model }) => {
   imagesRouter.get('/', imagesController.getAll)
   imagesRouter.get('/:id', imagesController.getById)
   imagesRouter.post('/new', upload.single('image'), imagesController.create)
-  imagesRouter.patch('/edit/:id', upload.single('image'), imagesController.update)
+  imagesRouter.patch(
+    '/edit/:id',
+    upload.single('image'),
+    imagesController.update
+  )
   imagesRouter.delete('/delete/:id', imagesController.delete)
 
   return imagesRouter

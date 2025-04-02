@@ -36,7 +36,7 @@ export class ImagesController {
 
   create = async (req, res) => {
     try {
-      if (!req.file) return res.status(400).json({ error: 'Image is required' })
+      if (!req.file) { return res.status(400).json({ error: 'Image is required' }) }
 
       const uploadResult = await clouddinary.uploader.upload(req.file.path, {
         folder: 'instarent/properties',
@@ -51,11 +51,17 @@ export class ImagesController {
         public_id: uploadResult.public_id
       })
 
-      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+      if (!result.success) {
+        throw new Error(
+          result.error.errors.map((err) => err.message).join(',')
+        )
+      }
 
       const newImage = await this.model.createImage(result.data)
 
-      res.status(201).json({ message: 'Image created successfully', image: newImage })
+      res
+        .status(201)
+        .json({ message: 'Image created successfully', image: newImage })
     } catch (e) {
       console.error('Error uploading image:', e)
       res.status(500).json({ error: e.message ?? 'Internal server error' })
@@ -89,7 +95,11 @@ export class ImagesController {
 
       const result = validatePartialImage(updatedData)
 
-      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+      if (!result.success) {
+        throw new Error(
+          result.error.errors.map((err) => err.message).join(',')
+        )
+      }
 
       const updatedImage = await this.model.updateImage({ id, ...result.data })
 

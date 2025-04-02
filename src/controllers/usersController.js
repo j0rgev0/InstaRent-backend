@@ -8,7 +8,9 @@ export class UsersController {
     try {
       const usersJSON = await this.model.getAllUsers()
 
-      if (!usersJSON.length) return res.status(404).json({ message: 'No users found' })
+      if (!usersJSON.length) {
+        return res.status(404).json({ message: 'No users found' })
+      }
 
       res.json(usersJSON)
     } catch (e) {
@@ -38,11 +40,17 @@ export class UsersController {
       const { id } = req.params
       const result = validatePartialUser(req.body)
 
-      if (!result.success) { throw new Error(result.error.errors.map((err) => err.message).join(',')) }
+      if (!result.success) {
+        throw new Error(
+          result.error.errors.map((err) => err.message).join(',')
+        )
+      }
 
       const updatedUser = await this.model.edit({ id, ...result.data })
 
-      if (!updatedUser) { return res.status(404).json({ error: 'User not found' }) }
+      if (!updatedUser) {
+        return res.status(404).json({ error: 'User not found' })
+      }
 
       res.json({
         message: 'User updated successfull',
@@ -62,7 +70,11 @@ export class UsersController {
 
       const result = await this.model.deleteUser(id)
 
-      if (result === 0) return res.status(404).json({ error: 'User not found or already deleted' })
+      if (result === 0) {
+        return res
+          .status(404)
+          .json({ error: 'User not found or already deleted' })
+      }
 
       res.json({ message: 'User deleted successfully' })
     } catch (e) {

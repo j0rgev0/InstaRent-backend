@@ -9,7 +9,11 @@ export class AuthController {
     try {
       const result = validateUser(req.body)
 
-      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+      if (!result.success) {
+        throw new Error(
+          result.error.errors.map((err) => err.message).join(',')
+        )
+      }
 
       const newUser = await this.model.registerUser(result.data)
 
@@ -29,7 +33,11 @@ export class AuthController {
     try {
       const result = validateLogin(req.body)
 
-      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+      if (!result.success) {
+        throw new Error(
+          result.error.errors.map((err) => err.message).join(',')
+        )
+      }
 
       const user = await this.model.loginUser(result.data)
 

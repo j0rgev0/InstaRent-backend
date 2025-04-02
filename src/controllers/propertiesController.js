@@ -1,4 +1,7 @@
-import { validateProperty, validatePartialProperty } from '../schemas/properties.js'
+import {
+  validateProperty,
+  validatePartialProperty
+} from '../schemas/properties.js'
 export class PropertiesController {
   constructor ({ model }) {
     this.model = model
@@ -22,9 +25,25 @@ export class PropertiesController {
       const { operation } = req.query
       const { country } = req.query
 
-      const properties = await this.model.getAllProperties({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation, minSize, maxSize, country })
+      const properties = await this.model.getAllProperties({
+        features,
+        province,
+        city,
+        type,
+        condition,
+        street,
+        constructionYear,
+        latitude,
+        longitude,
+        minPrice,
+        maxPrice,
+        operation,
+        minSize,
+        maxSize,
+        country
+      })
 
-      if (!properties.length) return res.status(404).json({ message: 'No properties found' })
+      if (!properties.length) { return res.status(404).json({ message: 'No properties found' }) }
 
       res.json(properties)
     } catch (e) {
@@ -38,7 +57,7 @@ export class PropertiesController {
       const { id } = req.params
       const property = await this.model.getPropertyById(id)
 
-      if (!property) return res.status(404).json({ error: 'property not found' })
+      if (!property) { return res.status(404).json({ error: 'property not found' }) }
 
       res.json(property)
     } catch (e) {
@@ -51,7 +70,11 @@ export class PropertiesController {
     try {
       const result = validateProperty(req.body)
 
-      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+      if (!result.success) {
+        throw new Error(
+          result.error.errors.map((err) => err.message).join(',')
+        )
+      }
 
       const newProperty = await this.model.createProperties(result.data)
 
@@ -69,11 +92,15 @@ export class PropertiesController {
     try {
       const { id } = req.params
 
-      if (!id) return res.status(400).json({ error: 'Property id is required' })
+      if (!id) { return res.status(400).json({ error: 'Property id is required' }) }
 
       const result = await this.model.deleteProperties(id)
 
-      if (result === 0) return res.status(404).json({ error: 'Property not found or already deleted' })
+      if (result === 0) {
+        return res
+          .status(404)
+          .json({ error: 'Property not found or already deleted' })
+      }
 
       res.json({ message: 'Property deleted successfully' })
     } catch (e) {
@@ -87,11 +114,18 @@ export class PropertiesController {
       const { id } = req.params
       const result = validatePartialProperty(req.body)
 
-      if (!result.success) throw new Error(result.error.errors.map(err => err.message).join(','))
+      if (!result.success) {
+        throw new Error(
+          result.error.errors.map((err) => err.message).join(',')
+        )
+      }
 
-      const updatedProperty = await this.model.updateProperties({ id, ...result.data })
+      const updatedProperty = await this.model.updateProperties({
+        id,
+        ...result.data
+      })
 
-      if (!updatedProperty) return res.status(404).json({ error: 'error updating property' })
+      if (!updatedProperty) { return res.status(404).json({ error: 'error updating property' }) }
 
       res.status(200).json({
         message: 'Property updated successfully',
