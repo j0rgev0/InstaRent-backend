@@ -29,7 +29,6 @@
     "better-auth": "^1.2.5",
     "cloudinary": "^2.6.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
     "eslint": "^8.57.1",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
