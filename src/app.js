@@ -4,7 +4,7 @@ import { env } from './config/env.js'
 // import { authMiddleware } from './middlewares/auth.js'
 
 import { toNodeHandler } from 'better-auth/node'
-import { auth } from './auth.js'
+import { auth } from './lib/auth.js'
 
 import { authRoutes } from './routes/auth.js'
 import { userRoutes } from './routes/user.js'
@@ -13,6 +13,7 @@ import { featuresRoutes } from './routes/features.js'
 import { imagesRoutes } from './routes/images.js'
 
 import { AuthModel } from './models/postgresql/authModel.js'
+// import { AuthModel } from './models/betterAuth/authModel.js'
 import { UserModel } from './models/postgresql/userModel.js'
 import { PropertiesModel } from './models/postgresql/propertiesModel.js'
 import { FeaturesModel } from './models/postgresql/featuresModel.js'
