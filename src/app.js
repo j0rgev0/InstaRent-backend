@@ -7,7 +7,7 @@ import { toNodeHandler } from 'better-auth/node'
 import { auth } from './auth.js'
 
 import { authRoutes } from './routes/auth.js'
-import { usersRoutes } from './routes/users.js'
+import { userRoutes } from './routes/user.js'
 import { propertiesRoutes } from './routes/properties.js'
 import { featuresRoutes } from './routes/features.js'
 import { imagesRoutes } from './routes/images.js'
@@ -28,7 +28,7 @@ export const createApp = () => {
 
   app.use('/auth', authRoutes({ model: AuthModel }))
 
-  app.use('/users', usersRoutes({ model: UserModel }))
+  app.use('/users', userRoutes({ model: UserModel }))
   app.use('/properties', propertiesRoutes({ model: PropertiesModel }))
   app.use('/features', featuresRoutes({ model: FeaturesModel }))
   app.use('/images', imagesRoutes({ model: ImagesModel }))

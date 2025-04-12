@@ -1,20 +1,20 @@
-import { Users } from '../../config/db.js'
+import { User } from '../../config/db.js'
 import bcrypt from 'bcrypt'
 
 export class UserModel {
-  static async getAllUsers () {
-    const users = await Users.findAll({
+  static async getAllUser () {
+    const user = await User.findAll({
       attributes: { exclude: ['password'] }
     })
 
-    if (!users) throw new Error('No users found')
+    if (!user) throw new Error('No user found')
 
-    return users
+    return user
   }
 
   static async getUserById (id) {
     try {
-      const user = await Users.findOne({
+      const user = await User.findOne({
         where: { id },
         attributes: { exclude: ['password'] }
       })
@@ -29,7 +29,7 @@ export class UserModel {
 
   static async edit (user) {
     try {
-      const updatedUser = await Users.findOne({
+      const updatedUser = await User.findOne({
         where: {
           id: user.id
         }
@@ -53,7 +53,7 @@ export class UserModel {
 
   static async deleteUser (id) {
     try {
-      const user = await Users.findOne({
+      const user = await User.findOne({
         where: { id }
       })
 

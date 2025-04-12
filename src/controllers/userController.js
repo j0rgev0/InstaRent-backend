@@ -1,20 +1,21 @@
-import { validatePartialUser } from '../schemas/users.js'
-export class UsersController {
+import { validatePartialUser } from '../schemas/user.js'
+
+export class UserController {
   constructor ({ model }) {
     this.model = model
   }
 
   getAll = async (req, res) => {
     try {
-      const usersJSON = await this.model.getAllUsers()
+      const userJSON = await this.model.getAllUser()
 
-      if (!usersJSON.length) {
-        return res.status(404).json({ message: 'No users found' })
+      if (!userJSON.length) {
+        return res.status(404).json({ message: 'No user found' })
       }
 
-      res.json(usersJSON)
+      res.json(userJSON)
     } catch (e) {
-      console.error('Error getting users:', e)
+      console.error('Error getting user:', e)
       res.status(500).json({ error: 'internal server error' })
     }
   }

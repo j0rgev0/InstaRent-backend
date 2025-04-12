@@ -1,16 +1,16 @@
-import sequelize, { Users } from '../../config/db.js'
+import sequelize, { User } from '../../config/db.js'
 import bcrypt from 'bcrypt'
 
 export class AuthModel {
   static async registerUser (user) {
     try {
-      const existingUserEmail = await Users.findOne({
+      const existingUserEmail = await User.findOne({
         where: {
           email: user.email
         }
       })
 
-      const existingUserName = await Users.findOne({
+      const existingUserName = await User.findOne({
         where: {
           username: user.username
         }
@@ -20,7 +20,7 @@ export class AuthModel {
 
       const hashedPassword = await bcrypt.hash(user.password, 10)
 
-      const newUser = await Users.create({
+      const newUser = await User.create({
         ...user,
         id: sequelize.UUIDV4,
         password: hashedPassword
@@ -35,7 +35,7 @@ export class AuthModel {
 
   static async loginUser ({ username, password }) {
     try {
-      const user = await Users.findOne({
+      const user = await User.findOne({
         where: { username }
       })
 

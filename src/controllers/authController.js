@@ -1,4 +1,4 @@
-import { validateUser, validateLogin } from '../schemas/users.js'
+import { validateUser, validateLogin } from '../schemas/user.js'
 import { generateToken } from '../lib/utils.js'
 export class AuthController {
   constructor ({ model }) {

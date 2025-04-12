@@ -1,7 +1,7 @@
 // import { neon } from '@neondatabase/serverless'
 import { env } from './env.js'
 import { Sequelize } from 'sequelize'
-import { UsersModel } from '../sequelize/usersModel.js'
+import { UserModel } from '../sequelize/userModel.js'
 import { PropertiesModel } from '../sequelize/propertiesModel.js'
 import { FeaturesModel } from '../sequelize/featuresModel.js'
 import { ImagesModel } from '../sequelize/imagesModel.js'
@@ -17,7 +17,7 @@ const sequelize = new Sequelize(env.DATABASE_URL, {
   // logging: false
 })
 
-export const Users = UsersModel(sequelize)
+export const User = UserModel(sequelize)
 export const Properties = PropertiesModel(sequelize)
 export const Features = FeaturesModel(sequelize)
 export const Images = ImagesModel(sequelize)

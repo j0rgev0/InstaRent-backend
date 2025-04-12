@@ -1,18 +1,12 @@
 import { DataTypes } from 'sequelize'
 
-export const UsersModel = (sequelize) => {
+export const UserModel = (sequelize) => {
   return sequelize.define(
-    'users',
+    'user',
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.TEXT,
         primaryKey: true
-      },
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
       },
       name: {
         type: DataTypes.STRING,
@@ -26,19 +20,27 @@ export const UsersModel = (sequelize) => {
           isEmail: true
         }
       },
-      role: {
-        type: DataTypes.ENUM('admin', 'owner', 'tenant'),
-        defaultValue: 'tenant',
+      emailVerified: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
+      image: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      createdAt: {
+        type: DataTypes.DATE,
         allowNull: false
       },
-      password: {
-        type: DataTypes.STRING,
+      updatedAt: {
+        type: DataTypes.DATE,
         allowNull: false
       }
     },
     {
       timestamps: true,
-      underscored: true
+      tableName: 'user'
     }
   )
 }
