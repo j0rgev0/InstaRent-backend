@@ -9,16 +9,33 @@ export const PropertiesModel = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
       },
-      bedrooms: {
-        type: DataTypes.INTEGER,
+      type: {
+        type: DataTypes.ENUM(
+          'apartment',
+          'penthouse',
+          'chalet',
+          'duplex',
+          'studio',
+          'loft',
+          'ruralproperty',
+          'groundfloor',
+          'townhouse',
+          'other'
+        ),
+        defaultValue: 'other',
+        allowNull: false
+      },
+      operation: {
+        type: DataTypes.ENUM('sale', 'rent'),
+        defaultValue: 'rent',
         allowNull: false
       },
       bathrooms: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      furnished: {
-        type: DataTypes.BOOLEAN,
+      bedrooms: {
+        type: DataTypes.INTEGER,
         allowNull: false
       },
       size: {
@@ -29,10 +46,6 @@ export const PropertiesModel = (sequelize) => {
         type: DataTypes.DOUBLE,
         allowNull: false
       },
-      zip_code: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
       latitude: {
         type: DataTypes.TEXT,
         allowNull: false
@@ -41,15 +54,19 @@ export const PropertiesModel = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false
       },
-      construction_year: {
-        type: DataTypes.INTEGER,
+      street: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      street_number: {
+        type: DataTypes.STRING,
         allowNull: true
       },
-      floor: {
-        type: DataTypes.INTEGER,
-        allowNull: true
+      neighborhood: {
+        type: DataTypes.STRING,
+        allowNull: false
       },
-      city: {
+      locality: {
         type: DataTypes.STRING,
         allowNull: false
       },
@@ -57,44 +74,54 @@ export const PropertiesModel = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false
       },
+      state: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       country: {
         type: DataTypes.STRING,
+        allowNull: false
+      },
+      postal_code: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      floor: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      letter: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      condition: {
+        type: DataTypes.ENUM(
+          'new',
+          'excellent',
+          'good',
+          'fair',
+          'to_renovate',
+          'ruin'
+        ),
+        defaultValue: 'good',
         allowNull: false
       },
       description: {
         type: DataTypes.TEXT,
         allowNull: false
       },
-      video: {
+
+      construction_year: {
+        type: DataTypes.INTEGER,
+        allowNull: true
+      },
+      furnished: {
         type: DataTypes.BOOLEAN,
         allowNull: true
       },
-      neighborhood: {
-        type: DataTypes.STRING,
-        allowNull: false
-      },
-      condition: {
-        type: DataTypes.ENUM('new', 'excellent', 'good', 'fair', 'to_renovate', 'ruin'),
-        defaultValue: 'good',
-        allowNull: false
-      },
-      operation: {
-        type: DataTypes.ENUM('sale', 'rent'),
-        defaultValue: 'rent',
-        allowNull: false
-      },
-      type: {
-        type: DataTypes.ENUM('apartment', 'house', 'office', 'land', 'garage', 'storage', 'room', 'building', 'local', 'other'),
-        defaultValue: 'other',
-        allowNull: false
-      },
-      door: {
-        type: DataTypes.STRING,
+      video: {
+        type: DataTypes.BOOLEAN,
         allowNull: true
-      },
-      street: {
-        type: DataTypes.STRING,
-        allowNull: false
       }
     },
     {
