@@ -94,7 +94,7 @@ export const PropertiesModel = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: true
       },
-      condition: {
+      conservation: {
         type: DataTypes.ENUM(
           'new',
           'excellent',
