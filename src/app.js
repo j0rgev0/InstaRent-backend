@@ -25,16 +25,24 @@ export const createApp = () => {
   app.all('/api/auth/*', toNodeHandler(auth))
   app.use(json())
 
-  // app.use(authMiddleware)
-
   app.use('/auth', authRoutes({ model: AuthModel }))
 
-  app.use('/users', userRoutes({ model: UserModel }))
-  app.use('/properties', propertiesRoutes({ model: PropertiesModel }))
-  app.use('/features', featuresRoutes({ model: FeaturesModel }))
-  app.use('/images', imagesRoutes({ model: ImagesModel }))
-  // app.use('/likes', likesRoutes({ model }))
-  // app.use('/chat', chatRoutes({ model }))
+  // app.use(authMiddleware)
+
+  app.use(
+    '/api',
+    ((router) => {
+      router.use('/auth', authRoutes({ model: AuthModel }))
+      router.use('/users', userRoutes({ model: UserModel }))
+      router.use('/properties', propertiesRoutes({ model: PropertiesModel }))
+      router.use('/features', featuresRoutes({ model: FeaturesModel }))
+      router.use('/images', imagesRoutes({ model: ImagesModel }))
+      // router.use('/likes', likesRoutes({ model }))
+      // router.use('/chat', chatRoutes({ model }))
+
+      return router
+    })(express.Router())
+  )
 
   app.get('/', (req, res) => {
     res.send('Hello World!')
