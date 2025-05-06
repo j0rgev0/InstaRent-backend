@@ -64,7 +64,7 @@ export const PropertiesModel = (sequelize) => {
       },
       neighborhood: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
       },
       locality: {
         type: DataTypes.STRING,
@@ -110,7 +110,6 @@ export const PropertiesModel = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false
       },
-
       construction_year: {
         type: DataTypes.INTEGER,
         allowNull: true

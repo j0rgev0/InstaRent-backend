@@ -15,7 +15,7 @@ const propertySchema = z.object({
       'other'
     ])
     .default('other'),
-  operation: z.enum(['sale', 'rent']).default('rent'),
+  operation: z.enum(['sell', 'rent']).default('rent'),
   bathrooms: z
     .number()
     .int()
@@ -27,19 +27,19 @@ const propertySchema = z.object({
   longitude: z.string().min(1, { message: 'Longitude is required' }),
   street: z.string().optional(),
   street_number: z.string().min(1, { message: 'Street Number is required' }),
-  neighborhood: z.string().min(1, { message: 'Neighborhood is required' }),
+  neighborhood: z.string().optional(),
   locality: z.string().min(1, { message: 'locality is required' }),
   province: z.string().min(1, { message: 'Province is required' }),
   state: z.string().min(1, { message: 'City is required' }),
   country: z.string().min(1, { message: 'Country is required' }),
   postal_code: z.string().min(1, { message: 'Zip code is required' }),
-  floor: z.number().int().optional(),
-  letter: z.string().min(1, { message: 'letter code is required' }),
+  floor: z.number().optional(),
+  letter: z.string().optional(),
   conservation: z
     .enum(['new', 'excellent', 'good', 'fair', 'to_renovate', 'ruin'])
     .default('good'),
   description: z.string().min(1, { message: 'Description is required' }),
-  construction_year: z.number().int().positive().optional().optional(),
+  construction_year: z.number().optional(),
   furnished: z.boolean().default(false),
   video: z.boolean().optional(),
   created_at: z.date().default(() => new Date()),

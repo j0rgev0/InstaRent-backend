@@ -2,7 +2,23 @@ import { Op } from 'sequelize'
 import sequelize, { Properties, Features, Images } from '../../config/db.js'
 
 export class PropertiesModel {
-  static async getAllProperties ({ features, province, city, type, condition, street, constructionYear, latitude, longitude, minPrice, maxPrice, operation, minSize, maxSize, country }) {
+  static async getAllProperties ({
+    features,
+    province,
+    city,
+    type,
+    condition,
+    street,
+    constructionYear,
+    latitude,
+    longitude,
+    minPrice,
+    maxPrice,
+    operation,
+    minSize,
+    maxSize,
+    country
+  }) {
     try {
       const whereConditions = {}
 
@@ -139,7 +155,9 @@ export class PropertiesModel {
       const existingProperty = await Properties.findOne({
         where: {
           longitude: property.longitude,
-          latitude: property.latitude
+          latitude: property.latitude,
+          floor: property.floor,
+          letter: property.letter ?? ''
         }
       })
 
@@ -147,16 +165,14 @@ export class PropertiesModel {
 
       const newProperty = await Properties.create({
         ...property,
-        city: property.city?.toLowerCase() ?? property.city,
-        province: property.province?.toLowerCase() ?? property.province,
-        type: property.type?.toLowerCase() ?? property.type,
-        condition: property.condition?.toLowerCase() ?? property.condition,
-        country: property.country?.toLowerCase() ?? property.country,
-        operation: property.operation?.toLowerCase() ?? property.operation,
-        street: property.street?.toLowerCase() ?? property.stre,
-        latitude: property.latitude?.toUpperCase() ?? property.latitude,
-        longitude: property.longitude?.toUpperCase() ?? property.longitude,
-        neighborhood: property.neighborhood?.toLowerCase() ?? property.neighborhood,
+        state: property.state?.toLowerCase(),
+        province: property.province?.toLowerCase(),
+        type: property.type?.toLowerCase() ?? 'other',
+        conservation: property.conservation?.toLowerCase() ?? 'good',
+        country: property.country?.toLowerCase(),
+        operation: property.operation?.toLowerCase() ?? 'rent',
+        street: property.street?.toLowerCase(),
+        neighborhood: property.neighborhood?.toLowerCase(),
         id: sequelize.UUIDV4
       })
 
@@ -199,13 +215,17 @@ export class PropertiesModel {
         city: property.city?.toLowerCase() ?? updatedProperty.city,
         province: property.province?.toLowerCase() ?? updatedProperty.province,
         type: property.type?.toLowerCase() ?? updatedProperty.type,
-        condition: property.condition?.toLowerCase() ?? updatedProperty.condition,
+        condition:
+          property.condition?.toLowerCase() ?? updatedProperty.condition,
         country: property.country?.toLowerCase() ?? updatedProperty.country,
-        operation: property.operation?.toLowerCase() ?? updatedProperty.operation,
+        operation:
+          property.operation?.toLowerCase() ?? updatedProperty.operation,
         street: property.street?.toLowerCase() ?? updatedProperty.stre,
         latitude: property.latitude?.toUpperCase() ?? updatedProperty.latitude,
-        longitude: property.longitude?.toUpperCase() ?? updatedProperty.longitude,
-        neighborhood: property.neighborhood?.toLowerCase() ?? updatedProperty.neighborhood
+        longitude:
+          property.longitude?.toUpperCase() ?? updatedProperty.longitude,
+        neighborhood:
+          property.neighborhood?.toLowerCase() ?? updatedProperty.neighborhood
       })
 
       return updatedProperty
