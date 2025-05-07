@@ -1,7 +1,6 @@
 import express, { json } from 'express'
 import { env } from './config/env.js'
-
-// import { authMiddleware } from './middlewares/auth.js'
+import { corsMiddleware } from './middlewares/cors.js'
 
 import { toNodeHandler } from 'better-auth/node'
 import { auth } from './lib/auth.js'
@@ -13,7 +12,6 @@ import { featuresRoutes } from './routes/features.js'
 import { imagesRoutes } from './routes/images.js'
 
 import { AuthModel } from './models/postgresql/authModel.js'
-// import { AuthModel } from './models/betterAuth/authModel.js'
 import { UserModel } from './models/postgresql/userModel.js'
 import { PropertiesModel } from './models/postgresql/propertiesModel.js'
 import { FeaturesModel } from './models/postgresql/featuresModel.js'
@@ -22,6 +20,8 @@ import { ImagesModel } from './models/postgresql/imagesModel.js'
 export const createApp = () => {
   const app = express()
 
+  app.use(corsMiddleware())
+
   app.all('/api/auth/*', toNodeHandler(auth))
   app.use(json())
 
@@ -29,6 +29,7 @@ export const createApp = () => {
 
   // app.use(authMiddleware)
 
+  // Enrutamiento API
   app.use(
     '/api',
     ((router) => {
@@ -37,9 +38,6 @@ export const createApp = () => {
       router.use('/properties', propertiesRoutes({ model: PropertiesModel }))
       router.use('/features', featuresRoutes({ model: FeaturesModel }))
       router.use('/images', imagesRoutes({ model: ImagesModel }))
-      // router.use('/likes', likesRoutes({ model }))
-      // router.use('/chat', chatRoutes({ model }))
-
       return router
     })(express.Router())
   )
@@ -48,9 +46,11 @@ export const createApp = () => {
     res.send('Hello World!')
   })
 
-  const PORT = env.PORT
+  // Manejar solicitudes OPTIONS (preflight)
+  app.options('*', corsMiddleware())
 
+  const PORT = env.PORT || 3000
   app.listen(PORT, () => {
-    console.log('Server is running on port http://localhost:3000')
+    console.log(`Server is running on port http://localhost:${PORT}`)
   })
 }
