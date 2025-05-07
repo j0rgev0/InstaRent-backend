@@ -110,6 +110,10 @@ export const PropertiesModel = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false
       },
+      user_id: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
       construction_year: {
         type: DataTypes.INTEGER,
         allowNull: true

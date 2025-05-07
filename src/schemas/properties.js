@@ -41,6 +41,7 @@ const propertySchema = z.object({
   description: z.string().min(1, { message: 'Description is required' }),
   construction_year: z.number().optional(),
   furnished: z.boolean().default(false),
+  user_id: z.string().min(1, { message: 'User id is required' }),
   video: z.boolean().optional(),
   created_at: z.date().default(() => new Date()),
   updated_at: z.date().default(() => new Date())
