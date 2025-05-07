@@ -43,10 +43,13 @@ export const createApp = () => {
   )
 
   app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send('Welcome to Instarent API!')
   })
 
-  // Manejar solicitudes OPTIONS (preflight)
+  app.use((req, res) => {
+    res.status(404).send(`404, ${req.originalUrl} not foud`)
+  })
+
   app.options('*', corsMiddleware())
 
   const PORT = env.PORT || 3000
