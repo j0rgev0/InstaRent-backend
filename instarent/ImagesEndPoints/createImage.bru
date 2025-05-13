@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/images/new
+  url: http://localhost:3000/api/images/new
   body: multipartForm
   auth: bearer
 }
@@ -27,7 +27,7 @@ body:json {
 
 body:multipart-form {
   image: @file(C:\Users\jorge\OneDrive\Imágenes\xd\cerdo.png) @contentType(file)
-  property_id: 852998fb-c6c7-4e7f-868f-7bdbb7488ee2 @contentType(text)
+  property_id: 12c5660b-24be-4e3a-b057-8bcd7132ae13 @contentType(text)
 }
 
 body:file {
