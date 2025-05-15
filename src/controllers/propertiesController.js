@@ -11,7 +11,7 @@ export class PropertiesController {
     try {
       const { features } = req.query
       const { province } = req.query
-      const { city } = req.query
+      const { locality } = req.query
       const { type } = req.query
       const { condition } = req.query
       const { street } = req.query
@@ -28,7 +28,7 @@ export class PropertiesController {
       const properties = await this.model.getAllProperties({
         features,
         province,
-        city,
+        locality,
         type,
         condition,
         street,

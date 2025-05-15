@@ -5,7 +5,7 @@ export class PropertiesModel {
   static async getAllProperties ({
     features,
     province,
-    city,
+    locality,
     type,
     condition,
     street,
@@ -26,8 +26,8 @@ export class PropertiesModel {
         whereConditions.province = province.toLowerCase()
       }
 
-      if (city) {
-        whereConditions.city = city.toLowerCase()
+      if (locality) {
+        whereConditions.locality = locality.toLowerCase()
       }
 
       if (type) {
@@ -166,6 +166,7 @@ export class PropertiesModel {
       const newProperty = await Properties.create({
         ...property,
         state: property.state?.toLowerCase(),
+        locality: property.locality?.toLowerCase(),
         province: property.province?.toLowerCase(),
         type: property.type?.toLowerCase() ?? 'other',
         conservation: property.conservation?.toLowerCase() ?? 'good',
@@ -212,7 +213,7 @@ export class PropertiesModel {
 
       await updatedProperty.update({
         ...property,
-        city: property.city?.toLowerCase() ?? updatedProperty.city,
+        locality: property.locality?.toLowerCase() ?? updatedProperty.locality,
         province: property.province?.toLowerCase() ?? updatedProperty.province,
         type: property.type?.toLowerCase() ?? updatedProperty.type,
         condition:

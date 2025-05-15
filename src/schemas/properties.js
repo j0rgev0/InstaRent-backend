@@ -30,7 +30,7 @@ const propertySchema = z.object({
   neighborhood: z.string().optional(),
   locality: z.string().min(1, { message: 'locality is required' }),
   province: z.string().min(1, { message: 'Province is required' }),
-  state: z.string().min(1, { message: 'City is required' }),
+  state: z.string().min(1, { message: 'state is required' }),
   country: z.string().min(1, { message: 'Country is required' }),
   postal_code: z.string().min(1, { message: 'Zip code is required' }),
   floor: z.number().optional(),
