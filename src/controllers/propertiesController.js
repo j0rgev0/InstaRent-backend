@@ -9,6 +9,7 @@ export class PropertiesController {
 
   getAll = async (req, res) => {
     try {
+      const { userid } = req.query
       const { features } = req.query
       const { province } = req.query
       const { locality } = req.query
@@ -26,6 +27,7 @@ export class PropertiesController {
       const { country } = req.query
 
       const properties = await this.model.getAllProperties({
+        userid,
         features,
         province,
         locality,
@@ -43,7 +45,9 @@ export class PropertiesController {
         country
       })
 
-      if (!properties.length) { return res.status(404).json({ message: 'No properties found' }) }
+      if (!properties.length) {
+        return res.status(404).json({ message: 'No properties found' })
+      }
 
       res.json(properties)
     } catch (e) {
@@ -57,7 +61,9 @@ export class PropertiesController {
       const { id } = req.params
       const property = await this.model.getPropertyById(id)
 
-      if (!property) { return res.status(404).json({ error: 'property not found' }) }
+      if (!property) {
+        return res.status(404).json({ error: 'property not found' })
+      }
 
       res.json(property)
     } catch (e) {
@@ -92,7 +98,9 @@ export class PropertiesController {
     try {
       const { id } = req.params
 
-      if (!id) { return res.status(400).json({ error: 'Property id is required' }) }
+      if (!id) {
+        return res.status(400).json({ error: 'Property id is required' })
+      }
 
       const result = await this.model.deleteProperties(id)
 
@@ -125,7 +133,9 @@ export class PropertiesController {
         ...result.data
       })
 
-      if (!updatedProperty) { return res.status(404).json({ error: 'error updating property' }) }
+      if (!updatedProperty) {
+        return res.status(404).json({ error: 'error updating property' })
+      }
 
       res.status(200).json({
         message: 'Property updated successfully',

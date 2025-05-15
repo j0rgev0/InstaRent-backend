@@ -3,6 +3,7 @@ import sequelize, { Properties, Features, Images } from '../../config/db.js'
 
 export class PropertiesModel {
   static async getAllProperties ({
+    userid,
     features,
     province,
     locality,
@@ -21,6 +22,10 @@ export class PropertiesModel {
   }) {
     try {
       const whereConditions = {}
+
+      if (userid) {
+        whereConditions.user_id = userid
+      }
 
       if (province) {
         whereConditions.province = province.toLowerCase()
