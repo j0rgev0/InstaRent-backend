@@ -5,13 +5,13 @@ meta {
 }
 
 get {
-  url: http://localhost:3000/properties?type=house
+  url: http://localhost:3000/api/properties?type=apartment
   body: none
   auth: bearer
 }
 
 params:query {
-  type: house
+  type: apartment
 }
 
 auth:bearer {
