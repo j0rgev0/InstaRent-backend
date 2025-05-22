@@ -32,7 +32,13 @@ export class PropertiesModel {
       }
 
       if (locality) {
-        whereConditions.locality = locality.toLowerCase()
+        if (Array.isArray(locality)) {
+          whereConditions.locality = {
+            [Op.in]: locality.map((loc) => loc.toLowerCase())
+          }
+        } else {
+          whereConditions.locality = locality.toLowerCase()
+        }
       }
 
       if (type) {
@@ -107,9 +113,12 @@ export class PropertiesModel {
       ]
 
       if (features) {
+        if (!Array.isArray(features)) features = [features]
         include[0].where = {
           name: {
-            [Op.like]: `%${features.toLowerCase()}%`
+            [Op.or]: features.map((f) => ({
+              [Op.iLike]: `%${f.toLowerCase()}%`
+            }))
           }
         }
       }
