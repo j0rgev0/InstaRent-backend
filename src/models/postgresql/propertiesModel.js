@@ -42,7 +42,13 @@ export class PropertiesModel {
       }
 
       if (type) {
-        whereConditions.type = type.toLowerCase()
+        if (Array.isArray(type)) {
+          whereConditions.type = {
+            [Op.in]: type.map((loc) => loc.toLowerCase())
+          }
+        } else {
+          whereConditions.type = type.toLowerCase()
+        }
       }
 
       if (condition) {
