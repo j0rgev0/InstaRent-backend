@@ -28,7 +28,13 @@ export class PropertiesModel {
       }
 
       if (province) {
-        whereConditions.province = province.toLowerCase()
+        if (Array.isArray(province)) {
+          whereConditions.province = {
+            [Op.in]: province.map((loc) => loc.toLowerCase())
+          }
+        } else {
+          whereConditions.province = province.toLowerCase()
+        }
       }
 
       if (locality) {
