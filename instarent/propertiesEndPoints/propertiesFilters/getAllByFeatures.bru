@@ -5,13 +5,14 @@ meta {
 }
 
 get {
-  url: http://localhost:3000/api/properties?features=terrace
+  url: http://localhost:3000/api/properties?features=terrace&features=elevator
   body: none
   auth: bearer
 }
 
 params:query {
   features: terrace
+  features: elevator
 }
 
 auth:bearer {
