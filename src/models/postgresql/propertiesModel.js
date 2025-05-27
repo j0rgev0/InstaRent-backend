@@ -62,7 +62,13 @@ export class PropertiesModel {
       }
 
       if (country) {
-        whereConditions.country = country.toLowerCase()
+        if (Array.isArray(country)) {
+          whereConditions.country = {
+            [Op.in]: country.map((loc) => loc.toLowerCase())
+          }
+        } else {
+          whereConditions.country = country.toLowerCase()
+        }
       }
 
       if (street) {
