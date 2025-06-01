@@ -40,6 +40,7 @@ export const UserModel = (sequelize) => {
     },
     {
       timestamps: true,
+      underscored: true,
       tableName: 'user'
     }
   )
