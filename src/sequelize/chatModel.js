@@ -14,15 +14,15 @@ export const ChatModel = sequelize.define(
       allowNull: false
     },
     senderId: {
-      type: DataTypes.UUID,
+      type: DataTypes.STRING,
       allowNull: false
     },
     receiverId: {
-      type: DataTypes.UUID,
+      type: DataTypes.STRING,
       allowNull: false
     },
     message: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false
     },
     read: {
@@ -31,7 +31,8 @@ export const ChatModel = sequelize.define(
     }
   },
   {
-    timestamps: true
+    timestamps: true,
+    underscored: true
   }
 )
 
