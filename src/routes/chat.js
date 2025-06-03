@@ -42,13 +42,13 @@ export const chatRoutes = ({ model }) => {
                 model: User,
                 as: 'sender',
                 foreignKey: 'senderId',
-                attributes: ['id', 'name', 'image']
+                attributes: ['id', 'name', 'image', 'emailVerified']
               },
               {
                 model: User,
                 as: 'receiver',
                 foreignKey: 'receiverId',
-                attributes: ['id', 'name', 'image']
+                attributes: ['id', 'name', 'image', 'emailVerified']
               }
             ]
           })
