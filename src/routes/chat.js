@@ -36,18 +36,19 @@ export const chatRoutes = ({ model }) => {
           const lastMessage = await model.findOne({
             where: { roomId },
             order: [['createdAt', 'DESC']],
+            attributes: ['roomId', 'senderId', 'receiverId'],
             include: [
               {
                 model: User,
                 as: 'sender',
                 foreignKey: 'senderId',
-                attributes: ['id', 'name', 'email', 'image']
+                attributes: ['id', 'name', 'image']
               },
               {
                 model: User,
                 as: 'receiver',
                 foreignKey: 'receiverId',
-                attributes: ['id', 'name', 'email', 'image']
+                attributes: ['id', 'name', 'image']
               }
             ]
           })
