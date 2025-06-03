@@ -1,5 +1,6 @@
 import express from 'express'
 import { Op } from 'sequelize'
+import { User } from '../config/db.js'
 
 export const chatRoutes = ({ model }) => {
   const router = express.Router()
@@ -21,13 +22,39 @@ export const chatRoutes = ({ model }) => {
   router.get('/rooms/:userId', async (req, res) => {
     try {
       const { userId } = req.params
-      const rooms = await model.findAll({
+
+      const uniqueRooms = await model.findAll({
+        attributes: ['roomId'],
         where: {
           [Op.or]: [{ senderId: userId }, { receiverId: userId }]
         },
-        attributes: ['roomId'],
         group: ['roomId']
       })
+
+      const rooms = await Promise.all(
+        uniqueRooms.map(async ({ roomId }) => {
+          const lastMessage = await model.findOne({
+            where: { roomId },
+            order: [['createdAt', 'DESC']],
+            include: [
+              {
+                model: User,
+                as: 'sender',
+                foreignKey: 'senderId',
+                attributes: ['id', 'name', 'email', 'image']
+              },
+              {
+                model: User,
+                as: 'receiver',
+                foreignKey: 'receiverId',
+                attributes: ['id', 'name', 'email', 'image']
+              }
+            ]
+          })
+          return lastMessage
+        })
+      )
+
       res.json(rooms)
     } catch (error) {
       console.error('Error fetching rooms:', error)
