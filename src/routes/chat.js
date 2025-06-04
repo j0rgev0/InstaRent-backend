@@ -41,6 +41,7 @@ export const chatRoutes = ({ model }) => {
               'senderId',
               'receiverId',
               'message',
+              'read',
               'createdAt'
             ],
             include: [

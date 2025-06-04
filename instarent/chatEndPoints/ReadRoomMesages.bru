@@ -1,0 +1,17 @@
+meta {
+  name: ReadRoomMesages
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3000/api/chat/read/FBQTUtfkgm40rVxddtqTiizS77aNtaMW-MfeIQeS4hPKwhKBYa33gjiMOyy94Acds
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "userId": "FBQTUtfkgm40rVxddtqTiizS77aNtaMW"
+  }
+}
