@@ -25,6 +25,16 @@ export const UserModel = (sequelize) => {
         allowNull: false,
         defaultValue: false
       },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: false
+      },
+      displayUsername: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: false
+      },
       image: {
         type: DataTypes.TEXT,
         allowNull: true
