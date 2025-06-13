@@ -91,7 +91,7 @@ export const PropertiesModel = (sequelize) => {
         allowNull: true
       },
       letter: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.TEXT,
         allowNull: true
       },
       conservation: {
